@@ -1,0 +1,13 @@
+services:
+  bot:
+    build: .
+    env_file: .env
+    environment:
+      DB_PATH: /data/bot.db
+      BUSINESS_FILE: /app/business.md
+    ports:
+      - "127.0.0.1:3000:3000"   # put a TLS reverse proxy (Caddy, nginx, Cloudflare Tunnel) in front
+    volumes:
+      - ./data:/data
+      - ./business.md:/app/business.md:ro
+    restart: unless-stopped
